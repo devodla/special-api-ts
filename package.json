@@ -4,5 +4,8 @@
   "main": "index.js",
   "repository": "git@github.com:onlyreynaldo/special-api-ts.git",
   "author": "Layme, Reynaldo <layme.reynaldo@icloud.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "git-commit-msg-linter": "^3.0.0"
+  }
 }
