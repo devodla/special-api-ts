@@ -10,10 +10,10 @@ services:
       - "27017:27017"
   api:
     container_name: api-container
-    build: .
-    image: special-api-ts
+    image: node:12
+    working_dir: /usr/src/special-api-ts
     restart: always
-    command: npm run debug
+    command: bash -c "npm install --only=prod && npm run debug"
     volumes:
       - ./dist:/usr/src/special-api-ts/dist
       - ./package.json:/usr/src/special-api-ts/package.json
