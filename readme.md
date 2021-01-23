@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.com/onlyreynaldo/special-api-ts.svg?branch=main)](https://travis-ci.com/onlyreynaldo/special-api-ts)
+[![Coverage Status](https://coveralls.io/repos/github/onlyreynaldo/special-api-ts/badge.svg?branch=main)](https://coveralls.io/github/onlyreynaldo/special-api-ts?branch=main)
+
 # **Special Clean TS**
 
 Essa API faz parte do treinamento do professor @rmanguinho.
