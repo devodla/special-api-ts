@@ -5,7 +5,7 @@ services:
     image: bitnami/mongodb:4.2.11
     restart: always
     volumes:
-      - ./data:/data/db
+      - ./data:/bitnami/mongodb/data/db
     ports:
       - "27017:27017"
   api:
