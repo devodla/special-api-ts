@@ -6,3 +6,7 @@ globalConfig.json
 ./data
 requirements
 .vscode
+jest.config.ts
+jest-unit-config.ts
+jest-integration-config.ts
+jest-mongodb-config.ts
