@@ -1,13 +1,17 @@
-import { loginPath } from '@/main/docs/paths/login-path'
-import { accountSchema } from '@/main/docs/schemas/account-schema'
-import { loginParamsSchema } from '@/main/docs/schemas/login-params-schema'
+import { loginPath } from '@/main/docs/paths'
+import { badRequest, unauthorized, serverError, notFound } from '@/main/docs/components'
+import { accountSchema, loginParamsSchema, errorSchema } from '@/main/docs/schemas'
 
 export default {
   openapi: '3.0.0',
   info: {
     title: 'Special API TS',
     description: 'With NodeJs, TypeScript, TDD and special architecture clean, learning Udemy course of @rmanguinho',
-    version: '1.0.0'
+    version: '1.0.0',
+    license: {
+      name: 'MIT License',
+      url: 'https://github.com/onlyreynaldo/special-api-ts/blob/main/LICENSE'
+    }
   },
   servers: [{
     url: '/api'
@@ -20,6 +24,13 @@ export default {
   },
   schemas: {
     account: accountSchema,
-    loginParams: loginParamsSchema
+    loginParams: loginParamsSchema,
+    error: errorSchema
+  },
+  components: {
+    badRequest,
+    unauthorized,
+    serverError,
+    notFound
   }
 }
