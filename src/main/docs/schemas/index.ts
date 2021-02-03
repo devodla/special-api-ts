@@ -1,6 +1,8 @@
 export * from './login-params-schema'
 export * from './signup-params-schema'
 export * from './add-survey-params-schema'
+export * from './save-survey-result-params-schema copy'
+export * from './survey-result-schema'
 export * from './account-schema'
 export * from './error-schema'
 export * from './survey-schema'
