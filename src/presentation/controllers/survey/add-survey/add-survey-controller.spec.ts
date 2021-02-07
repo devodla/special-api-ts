@@ -9,7 +9,7 @@ import { mockValidation, mockAddSurvey } from '@/presentation/test'
 import { throwError } from '@/domain/test'
 import MockDate from 'mockdate'
 
-const makeFakeRequest = (): HttpRequest => ({
+const mockRequest = (): HttpRequest => ({
   body: {
     question: 'any_question',
     answers: [{
@@ -49,34 +49,34 @@ describe('AddSurvey Controller', () => {
   test('Should call Validation with correct values', async () => {
     const { sut, validationStub } = makeSut()
     const validateSpy = jest.spyOn(validationStub, 'validate')
-    await sut.handle(makeFakeRequest())
-    expect(validateSpy).toHaveBeenCalledWith(makeFakeRequest().body)
+    await sut.handle(mockRequest())
+    expect(validateSpy).toHaveBeenCalledWith(mockRequest().body)
   })
 
   test('Should return 400 if Validation fails', async () => {
     const { sut, validationStub } = makeSut()
     jest.spyOn(validationStub, 'validate').mockReturnValueOnce(new Error())
-    const httpReponse = await sut.handle(makeFakeRequest())
+    const httpReponse = await sut.handle(mockRequest())
     expect(httpReponse).toEqual(badRequest(new Error()))
   })
 
   test('Should call AddSurvey with correct values', async () => {
     const { sut, addSurveyStub } = makeSut()
     const addSpy = jest.spyOn(addSurveyStub, 'add')
-    await sut.handle(makeFakeRequest())
-    expect(addSpy).toHaveBeenCalledWith(makeFakeRequest().body)
+    await sut.handle(mockRequest())
+    expect(addSpy).toHaveBeenCalledWith(mockRequest().body)
   })
 
   test('Should return 500 if AddSurvey throws', async () => {
     const { sut, addSurveyStub } = makeSut()
     jest.spyOn(addSurveyStub, 'add').mockImplementationOnce(throwError)
-    const httpReponse = await sut.handle(makeFakeRequest())
+    const httpReponse = await sut.handle(mockRequest())
     expect(httpReponse).toEqual(serverError(new Error()))
   })
 
   test('Should return 204 on success', async () => {
     const { sut } = makeSut()
-    const httpReponse = await sut.handle(makeFakeRequest())
+    const httpReponse = await sut.handle(mockRequest())
     expect(httpReponse).toEqual(noContent())
   })
 })
