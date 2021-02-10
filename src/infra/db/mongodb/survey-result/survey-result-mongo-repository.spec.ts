@@ -2,8 +2,8 @@ import { SurveyResultMongoRepository } from './survey-result-mongo-repository'
 import { MongoHelper } from '../helpers/mongo-helper'
 import { SurveyModel } from '@/domain/models/survey'
 import { AccountModel } from '@/domain/models/account'
-import { mockAddAccountParams, mockAddSurveyParams } from '@/domain/test'
 import { Collection, ObjectId } from 'mongodb'
+import { mockAddAccountParams, mockAddSurveyParams } from '@/domain/test'
 
 let surveyCollection: Collection
 let surveyResultCollection: Collection
@@ -23,7 +23,7 @@ const makeAccount = async (): Promise<AccountModel> => {
   return MongoHelper.map(res.ops[0])
 }
 
-describe('Survey Result Mongo Repository', () => {
+describe('SurveyResultMongoRepository', () => {
   beforeAll(async () => {
     await MongoHelper.connect(process.env.MONGO_URL)
   })
@@ -98,27 +98,15 @@ describe('Survey Result Mongo Repository', () => {
         accountId: new ObjectId(account.id),
         answer: survey.answers[0].answer,
         date: new Date()
-      }, {
-        surveyId: new ObjectId(survey.id),
-        accountId: new ObjectId(account.id),
-        answer: survey.answers[1].answer,
-        date: new Date()
-      }, {
-        surveyId: new ObjectId(survey.id),
-        accountId: new ObjectId(account.id),
-        answer: survey.answers[1].answer,
-        date: new Date()
       }])
       const sut = makeSut()
       const surveyResult = await sut.loadBySurveyId(survey.id)
       expect(surveyResult).toBeTruthy()
       expect(surveyResult.surveyId).toEqual(survey.id)
       expect(surveyResult.answers[0].count).toBe(2)
-      expect(surveyResult.answers[0].percent).toBe(50)
-      expect(surveyResult.answers[1].count).toBe(2)
-      expect(surveyResult.answers[1].percent).toBe(50)
-      expect(surveyResult.answers[2].count).toBe(0)
-      expect(surveyResult.answers[2].percent).toBe(0)
+      expect(surveyResult.answers[0].percent).toBe(100)
+      expect(surveyResult.answers[1].count).toBe(0)
+      expect(surveyResult.answers[1].percent).toBe(0)
     })
   })
 

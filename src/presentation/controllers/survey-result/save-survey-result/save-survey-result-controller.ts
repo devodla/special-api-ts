@@ -29,7 +29,7 @@ export class SaveSurveyResultController implements Controller {
         return forbidden(new InvalidParamError('surveyId'))
       }
       const surveyResult = await this.saveSurveyResult.save({
-        surveyId: survey.id,
+        surveyId,
         accountId,
         answer,
         date: new Date()
