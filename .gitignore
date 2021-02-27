@@ -5,3 +5,6 @@ coverage
 globalConfig.json
 data
 !src/data
+!tests/data
+.idea
+.env
