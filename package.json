@@ -68,5 +68,10 @@
   },
   "_moduleAliases": {
     "@": "dist"
+  },
+  "config": {
+    "mongodbMemoryServer": {
+      "version": "4.4.3"
+    }
   }
 }
