@@ -1,8 +1,8 @@
 import { SingUpController } from '@/presentation/controllers'
 import { MissingParamError, ServerError, EmailInUseError } from '@/presentation/errors'
 import { ok, serverError, badRequest, forbidden } from '@/presentation/helpers'
-import { ValidationSpy, AuthenticationSpy, AddAccountSpy } from '@/../tests/presentation/mocks'
-import { throwError } from '@/../tests/domain/mocks'
+import { ValidationSpy, AuthenticationSpy, AddAccountSpy } from '@/tests/presentation/mocks'
+import { throwError } from '@/tests/domain/mocks'
 
 import faker from 'faker'
 
