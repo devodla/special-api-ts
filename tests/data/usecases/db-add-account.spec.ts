@@ -1,10 +1,12 @@
 import { DbAddAccount } from '@/data/usecases'
-import { mockAccountModel, mockAddAccountParams, throwError } from '@/tests/domain/mocks'
+import { mockAddAccountParams, throwError } from '@/tests/domain/mocks'
 import {
   HasherSpy,
   AddAccountRepositorySpy,
   LoadAccountByEmailRepositorySpy
 } from '@/tests/data/mocks'
+
+import faker from 'faker'
 
 type SutTypes = {
   sut: DbAddAccount
@@ -16,7 +18,7 @@ type SutTypes = {
 const makeSut = (): SutTypes => {
   const hasherSpy = new HasherSpy()
   const loadAccountByEmailRepositorySpy = new LoadAccountByEmailRepositorySpy()
-  loadAccountByEmailRepositorySpy.accountModel = null
+  loadAccountByEmailRepositorySpy.result = null
   const addAccountRepositorySpy = new AddAccountRepositorySpy()
   const sut = new DbAddAccount(hasherSpy, addAccountRepositorySpy, loadAccountByEmailRepositorySpy)
   return {
@@ -60,15 +62,26 @@ describe('DbAddAccount UseCase', () => {
     await expect(promise).rejects.toThrow()
   })
 
-  test('Should return true if LoadAccountByEmailRepository returns null', async () => {
+  test('Should return true on success', async () => {
     const { sut } = makeSut()
     const isValid = await sut.add(mockAddAccountParams())
     expect(isValid).toBe(true)
   })
 
+  test('Should return false if addAccountRepositorySpy returns false', async () => {
+    const { sut, addAccountRepositorySpy } = makeSut()
+    addAccountRepositorySpy.result = false
+    const isValid = await sut.add(mockAddAccountParams())
+    expect(isValid).toBe(false)
+  })
+
   test('Should return false if LoadAccountByEmailRepository returns an account', async () => {
     const { sut, loadAccountByEmailRepositorySpy } = makeSut()
-    loadAccountByEmailRepositorySpy.accountModel = mockAccountModel()
+    loadAccountByEmailRepositorySpy.result = {
+      id: faker.random.uuid(),
+      name: faker.name.findName(),
+      password: faker.internet.password()
+    }
     const isValid = await sut.add(mockAddAccountParams())
     expect(isValid).toBe(false)
   })

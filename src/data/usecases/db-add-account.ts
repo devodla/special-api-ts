@@ -4,7 +4,6 @@ import {
   AddAccountRepository,
   LoadAccountByEmailRepository
 } from '@/data/protocols'
-import { AccountModel } from '@/domain/models'
 
 export class DbAddAccount implements AddAccount {
   constructor (
@@ -15,12 +14,12 @@ export class DbAddAccount implements AddAccount {
 
   async add (accountData: AddAccount.Params): Promise<AddAccount.Result> {
     const existAccount = await this.loadAccountByEmailRepository.loadByEmail(accountData.email)
-    let account: AccountModel = null
+    let isValid = false
     if (!existAccount) {
       const hashedPassword = await this.hasher.hash(accountData.password)
-      account = await this.addAccountRepository
+      isValid = await this.addAccountRepository
         .add({ ...accountData, password: hashedPassword })
     }
-    return account !== null
+    return isValid
   }
 }
