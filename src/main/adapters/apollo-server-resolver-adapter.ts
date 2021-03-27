@@ -1,8 +1,9 @@
 import { Controller } from '@/presentation/protocols'
 import { ApolloError, AuthenticationError, ForbiddenError, UserInputError } from 'apollo-server-errors'
 
-export const adaptResolver = async (controller: Controller, args: any): Promise<any> => {
-  const httResponse = await controller.handle(args)
+export const adaptResolver = async (controller: Controller, args?: any): Promise<any> => {
+  const request = { ...(args || {}) }
+  const httResponse = await controller.handle(request)
   switch (httResponse.statusCode) {
     case 200:
     case 204: return httResponse.body
